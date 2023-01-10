@@ -3,6 +3,8 @@ import axios from "axios";
 const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 const days   = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado']
 
+export const BASE_URL='https://api.cloudinary.com/v1_1/dstyfk698/image/upload'
+
 const getDayMonthYear =(dateString)=>{
     const date = new Date(dateString);
 
@@ -21,8 +23,7 @@ const uploadImage = async (file)=>{
         formData.append('upload_preset','dailybook')
         formData.append('file',file)
 
-        const url = 'https://api.cloudinary.com/v1_1/dstyfk698/image/upload'
-        const {data} = await axios.post(url,formData)
+        const {data} = await axios.post(BASE_URL,formData)
 
         return data.secure_url;
 

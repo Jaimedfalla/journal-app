@@ -10,6 +10,7 @@ import { defineAsyncComponent } from 'vue';
 import { mapActions } from 'vuex';
 
 export default {
+  name:'NoEntrySelected',
   components: {
     Fab:defineAsyncComponent(()=> import('@/modules/daybook/components/FloatingActionButton.vue'))
   },

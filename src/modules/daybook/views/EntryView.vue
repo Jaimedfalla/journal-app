@@ -55,6 +55,7 @@ import {getDayMonthYear,uploadImage} from "../helpers/functions";
 import Swal from 'sweetalert2'
 
 export default {
+  name:'EntryView',
   components: {
     Fab: defineAsyncComponent(() =>
       import("../components/FloatingActionButton.vue")
