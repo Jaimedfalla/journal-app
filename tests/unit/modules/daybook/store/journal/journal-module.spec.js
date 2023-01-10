@@ -1,9 +1,7 @@
 import { createStore } from "vuex"
 import journal from '@/modules/daybook/store/journal'
 import { journalState,entries } from "../../__mocks__/test-journal-state"
-import axios from "axios"
-
-jest.mock('axios')
+import journalApi from '@/api/journalApi'
 
 const createVuexStore = (initialState)=> createStore({
     modules:{
@@ -82,28 +80,31 @@ describe('Pruebas en el journal module',()=>{
             entries:[]
         })
 
-        axios.get.mockResolvedValue({
-            data:{
-                entries
-            }
+        const spyGet = jest.spyOn(journalApi, 'get').mockReturnValue({
+            data:{...entries}
         })
 
         await store.dispatch('journal/loadEntries')
         
+        expect(spyGet).toHaveBeenCalledTimes(1)
         expect(store.state.journal.entries.length).toBe(2)
     })
 
-    // it('Actions: LoadEntries',async ()=>{
-    //     const store = createVuexStore(journalState)
-    //     const updatedEntry = {
-    //         id:"-NLMbHV4ZdCXF7IGwdhO",
-    //         date: "2023-01-09T17:38:44.103Z",
-    //         text: "Prueba de update Entry con foto",
-    //         picture:"https://res.cloudinary.com/dstyfk698/image/upload/v1673282666/cld-sample-4.jpg"
-    //     }
+    it('Actions: LoadEntries',async ()=>{
+        const store = createVuexStore(journalState)
+        const updatedEntry = {
+            id:"-NLMbHV4ZdCXF7IGwdhO",
+            date: "2023-01-09T17:38:44.103Z",
+            text: "Prueba de update Entry con foto",
+            picture:"https://res.cloudinary.com/dstyfk698/image/upload/v1673282666/cld-sample-4.jpg"
+        }
 
-    //     await store.dispatch('journal/updateEntry',updatedEntry)
+        const spyPut = jest.spyOn(journalApi, 'put').mockReturnValue()
 
-    //     expect(store.state.journal.entries.length).toBe(4)
-    // })
+        await store.dispatch('journal/updateEntry',updatedEntry)
+
+        expect(spyPut).toHaveBeenCalledTimes(1)
+        expect(store.state.journal.entries.length).toBe(2)
+        expect(store.state.journal.entries.find(e=> e.id===updatedEntry.id)).toEqual(updatedEntry)
+    })
 })
