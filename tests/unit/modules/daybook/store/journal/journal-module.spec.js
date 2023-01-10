@@ -90,7 +90,7 @@ describe('Pruebas en el journal module',()=>{
         expect(store.state.journal.entries.length).toBe(2)
     })
 
-    it('Actions: LoadEntries',async ()=>{
+    it('Actions: updateEntry',async ()=>{
         const store = createVuexStore(journalState)
         const updatedEntry = {
             id:"-NLMbHV4ZdCXF7IGwdhO",
