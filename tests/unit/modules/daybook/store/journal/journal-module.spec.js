@@ -1,6 +1,6 @@
 import { createStore } from "vuex"
 import journal from '@/modules/daybook/store/journal'
-import { journalState,entries } from "../../__mocks__/test-journal-state"
+import { journalState,entries,entry } from "../../__mocks__/test-journal-state"
 import journalApi from '@/api/journalApi'
 
 const createVuexStore = (initialState)=> createStore({
@@ -92,11 +92,9 @@ describe('Pruebas en el journal module',()=>{
 
     it('Actions: updateEntry',async ()=>{
         const store = createVuexStore(journalState)
-        const updatedEntry = {
-            id:"-NLMbHV4ZdCXF7IGwdhO",
-            date: "2023-01-09T17:38:44.103Z",
-            text: "Prueba de update Entry con foto",
-            picture:"https://res.cloudinary.com/dstyfk698/image/upload/v1673282666/cld-sample-4.jpg"
+        const updatedEntry = {...entry,
+            otroCampo:true,
+            otroMas:{a:1}
         }
 
         const spyPut = jest.spyOn(journalApi, 'put').mockReturnValue()
@@ -105,6 +103,21 @@ describe('Pruebas en el journal module',()=>{
 
         expect(spyPut).toHaveBeenCalledTimes(1)
         expect(store.state.journal.entries.length).toBe(2)
-        expect(store.state.journal.entries.find(e=> e.id===updatedEntry.id)).toEqual(updatedEntry)
+        expect(store.state.journal.entries.find(e=> e.id===updatedEntry.id)).toEqual(entry)
+    })
+
+    it('Actions: createEntry', async()=>{
+        const store = createVuexStore(journalState)
+        const spyPost = jest.spyOn(journalApi, 'post').mockReturnValue({
+            data:{
+                name:'aaaaaaa'
+            }
+        })
+        const {date,text,picture} = entry;
+        await store.dispatch('journal/createEntry',{date,text,picture})
+        expect(spyPost).toHaveBeenCalledTimes(1)
+        expect(store.state.journal.entries.length).toBe(3)
+        console.log(store.state.journal.entries)
+        expect(store.state.journal.entries.find(e=> e.id==='aaaaaaa')).toBeTruthy()
     })
 })

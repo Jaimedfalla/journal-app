@@ -27,3 +27,10 @@ export const entries = {
       "date": "2023-01-10T18:05:31.080Z"
     }
 }
+
+export const entry = {
+    id:"-NLMbHV4ZdCXF7IGwdhO",
+    date: "2023-01-09T17:38:44.103Z",
+    text: "Prueba de update Entry con foto",
+    picture:"https://res.cloudinary.com/dstyfk698/image/upload/v1673282666/cld-sample-4.jpg"
+}
