@@ -166,18 +166,18 @@ export default {
       }
     },
     async showAlerts(method,message){
-      new Swal({
+      Swal.fire({
           title:'Espere por favor',
           allowOutsideClick:false
         })
 
-        Swal.showLoading()
-        const picture = await uploadImage(this.file)
-        this.entry.picture = picture;
-        await method()
-        Swal.fire(message.title,message.text,'success')
-        this.file = null
-        this.localImage = null
+      Swal.showLoading()
+      const picture = await uploadImage(this.file)
+      this.entry.picture = picture;
+      await method()
+      Swal.fire(message.title,message.text,'success')
+      this.file = null
+      this.localImage = null
     }
   },
   watch: {

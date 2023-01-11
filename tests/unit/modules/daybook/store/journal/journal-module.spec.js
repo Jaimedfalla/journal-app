@@ -1,16 +1,6 @@
-import { createStore } from "vuex"
-import journal from '@/modules/daybook/store/journal'
 import { journalState,entries,entry } from "../../__mocks__/test-journal-state"
 import journalApi from '@/api/journalApi'
-
-const createVuexStore = (initialState)=> createStore({
-    modules:{
-        journal:{
-            ...journal,
-            state:{...initialState}
-        }
-    }
-})
+import {createVuexStore} from '../../__mocks__/global-functions'
 
 describe('Pruebas en el journal module',()=>{
     it('Estado inicial',()=>{
@@ -117,7 +107,17 @@ describe('Pruebas en el journal module',()=>{
         await store.dispatch('journal/createEntry',{date,text,picture})
         expect(spyPost).toHaveBeenCalledTimes(1)
         expect(store.state.journal.entries.length).toBe(3)
-        console.log(store.state.journal.entries)
         expect(store.state.journal.entries.find(e=> e.id==='aaaaaaa')).toBeTruthy()
+    })
+
+    it('Actions: delete Entry', async()=>{
+        const store = createVuexStore(journalState)
+        const spyDelete = jest.spyOn(journalApi, 'delete').mockReturnValue()
+        const id = "-NLMbHV4ZdCXF7IGwdhO"
+        await store.dispatch('journal/deleteEntry',id)
+
+        expect(spyDelete).toHaveBeenCalledTimes(1)
+        expect(store.state.journal.entries.length).toBe(1)
+        expect(store.state.journal.entries.find(e=> e.id===id)).toBeFalsy()
     })
 })
