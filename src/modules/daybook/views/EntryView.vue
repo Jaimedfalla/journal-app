@@ -136,16 +136,19 @@ export default {
       this.$refs.imageSelector.click()
     },
     async saveEntry(){
-      this.showAlerts(
-        async ()=>{
-          const id = await this.save(this.entry)||this.id;
-          this.$router.push({ name: "entry",params:{id} });
-        },
-        {
-          title:'Guardado',
-          text: 'Entrada registrada con éxito'
-        }
-      )
+      return new Promise(console.log('Guardando entrada'))
+      // const creatEntry = async ()=>{
+      //     const id = await this.save(this.entry)||this.id;
+      //     this.$router.push({ name: "entry",params:{id} });
+      //   }
+
+      // const msgs = {
+      //     title:'Guardado',
+      //     text: 'Entrada registrada con éxito'
+      //   }
+      
+      // console.log(creatEntry)
+      // this.showAlerts(creatEntry,msgs)
     },
     async onDeleteEntry(){
       const {isConfirmed} = await Swal.fire({

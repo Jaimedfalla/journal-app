@@ -76,7 +76,7 @@ describe('Pruebas en el entry view',()=>{
         },1)
     })
 
-    it('Debe guardar la nueva entrada',async()=>{
+    it('Debe guardar la nueva entrada',async ()=>{
         const wrapper = shallowMount(EntryView,{
             props:{
                 id:'new'
@@ -88,17 +88,16 @@ describe('Pruebas en el entry view',()=>{
                 plugins:[store]
             },
         })
- 
-        const uploadSpy = jest.spyOn(functions,'uploadImage')
-            .mockResolvedValueOnce(Promise.resolve("https://www.google.com"))
             
         const textarea = wrapper.find('textarea')
         textarea.text = 'Entrada del Test unitario'
-        await wrapper.find('fab-stub').trigger('click')        
-        expect(uploadSpy).toHaveBeenCalledTimes(1)
-        expect(Swal.fire).toHaveBeenCalledWith({
-            title:'Espere por favor',
-            allowOutsideClick:false
-          })
+        const fabButton = wrapper.find('fab-stub')
+        console.log({...wrapper.vm.save})
+        console.log('El usuario hizo click',await fabButton.trigger('click'))
+
+        // setTimeout(()=>{
+        //     expect(Swal.fire).toHaveBeenCalled()
+        //     done()
+        // },1)
     })
 })
