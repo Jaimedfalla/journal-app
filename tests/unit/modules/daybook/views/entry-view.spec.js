@@ -3,7 +3,7 @@ import {createVuexStore} from '../__mocks__/global-functions'
 import { shallowMount } from "@vue/test-utils"
 import EntryView from "@/modules/daybook/views/EntryView.vue"
 import Swal from "sweetalert2"
-import * as functions from '@/modules/daybook/helpers/functions'
+// import * as functions from '@/modules/daybook/helpers/functions'
 
 //Para emular el comportamiento de SweetAlert
 jest.mock('sweetalert2',()=>({
@@ -76,7 +76,7 @@ describe('Pruebas en el entry view',()=>{
         },1)
     })
 
-    it('Debe guardar la nueva entrada',async ()=>{
+    it('Debe guardar la nueva entrada sin image',async ()=>{
         const wrapper = shallowMount(EntryView,{
             props:{
                 id:'new'
@@ -92,12 +92,13 @@ describe('Pruebas en el entry view',()=>{
         const textarea = wrapper.find('textarea')
         textarea.text = 'Entrada del Test unitario'
         const fabButton = wrapper.find('fab-stub')
-        console.log({...wrapper.vm.save})
-        console.log('El usuario hizo click',await fabButton.trigger('click'))
+        await fabButton.trigger('on:click')
 
-        // setTimeout(()=>{
-        //     expect(Swal.fire).toHaveBeenCalled()
-        //     done()
-        // },1)
+        expect(Swal.fire).toHaveBeenCalledWith({
+            title:'Espere por favor',
+            allowOutsideClick:false
+          })
+        expect(Swal.showLoading).toHaveBeenCalledTimes(1)
+        expect(mockRouter.push).toHaveBeenCalledWith({ name: "entry",params:{id:wrapper.vm.id} })
     })
 })

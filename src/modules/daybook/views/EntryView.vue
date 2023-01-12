@@ -120,6 +120,7 @@ export default {
     },
     onSelectedImage(event){
       const file = event.target.files[0]
+
       if(!file){
         this.localImage = null
         this.file = null
@@ -130,25 +131,22 @@ export default {
       const fr = new FileReader()
       fr.onload = ()=> this.localImage = fr.result
       fr.readAsDataURL(file)
-
     },
     selectImage(){
       this.$refs.imageSelector.click()
     },
-    async saveEntry(){
-      return new Promise(console.log('Guardando entrada'))
-      // const creatEntry = async ()=>{
-      //     const id = await this.save(this.entry)||this.id;
-      //     this.$router.push({ name: "entry",params:{id} });
-      //   }
+    saveEntry(){
+      const creatEntry = async ()=>{
+          const id = await this.save(this.entry)||this.id;
+          this.$router.push({ name: "entry",params:{id} });
+        }
 
-      // const msgs = {
-      //     title:'Guardado',
-      //     text: 'Entrada registrada con éxito'
-      //   }
+      const msgs = {
+          title:'Guardado',
+          text: 'Entrada registrada con éxito'
+        }
       
-      // console.log(creatEntry)
-      // this.showAlerts(creatEntry,msgs)
+      this.showAlerts(creatEntry,msgs)
     },
     async onDeleteEntry(){
       const {isConfirmed} = await Swal.fire({
