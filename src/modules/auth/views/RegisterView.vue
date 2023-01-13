@@ -45,21 +45,24 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+
+import Swal from 'sweetalert2'
+import { useRouter } from 'vue-router'
+import { useRegister } from '../composables/useRegister'
 
 export default {
     setup(){
-        const userForm = ref({
-            user:'',
-            email:'',
-            password:''
-        })
+        const router = useRouter()
+        const {userForm,createUser} = useRegister()
 
         return {
             userForm,
 
             onSubmit:async()=>{
-                console.log(userForm.value)
+                const {ok,message} = await createUser(userForm.value)
+                if(!ok) return Swal.fire('Error',message,'error')
+
+                router.push({name:'no-entry'})
             }
         }
     }
