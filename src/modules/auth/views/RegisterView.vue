@@ -8,7 +8,7 @@
         <div class="wrap-input100 validate-input" data-validate = "Ingrese su username">
             <input class="input100"
                     type="text"
-                    v-model="userForm.user"
+                    v-model="userForm.name"
                     placeholder="Usuario"
                     required>
                     
@@ -48,7 +48,7 @@
 
 import Swal from 'sweetalert2'
 import { useRouter } from 'vue-router'
-import { useRegister } from '../composables/useRegister'
+import useRegister from '../composables/useRegister'
 
 export default {
     setup(){

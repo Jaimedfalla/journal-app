@@ -4,7 +4,7 @@ import {ref} from 'vue'
 const useRegister = () => {
     const store =useStore()
     const userForm = ref({
-        user:'',
+        name:'',
         email:'',
         password:''
     })
