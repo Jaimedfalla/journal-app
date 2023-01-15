@@ -8,7 +8,6 @@ export const createUser = async({commit},user)=>{
         })
         const {idToken,refreshToken} = data
         await authApi.post('accounts:update',{displayName:name,idToken})
-
         delete user.password
         commit('loginUser',{user,idToken,refreshToken})
         return {ok:true}

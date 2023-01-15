@@ -7,9 +7,9 @@ export const loginUser = (state,{user,idToken,refreshToken})=>{
         localStorage.setItem('refreshToken',refreshToken)
         state.refreshToken = refreshToken
     }
-
+    
     state.user = user
-    state.state = 'authenticated'
+    state.status = 'authenticated'
 }
 
 export const logOut=(state)=>{

@@ -1,7 +1,7 @@
 import EntryList from '@/modules/daybook/components/EntryList.vue'
-import { journalState } from '../__mocks__/test-journal-state'
+import { journalState } from '../../../mock-data/test-journal-state'
 import { shallowMount } from '@vue/test-utils'
-import { createVuexStore } from '../__mocks__/global-functions'
+import { createVuexStore } from '../__mocks__/journal-store'
 
 describe('Pruebas en el EntryList component',()=>{
     

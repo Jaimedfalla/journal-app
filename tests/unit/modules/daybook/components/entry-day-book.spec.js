@@ -1,6 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import EntryDayBook from "@/modules/daybook/components/EntryDayBook.vue";
-import { entry } from "../__mocks__/test-journal-state";
+import { entry } from "../../../mock-data/test-journal-state";
 
 describe('Pruebas en Entry component',()=>{
 

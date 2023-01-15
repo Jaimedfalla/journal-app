@@ -1,5 +1,5 @@
-import { journalState } from "../__mocks__/test-journal-state"
-import {createVuexStore} from '../__mocks__/global-functions'
+import { journalState } from "../../../mock-data/test-journal-state"
+import {createVuexStore} from '../__mocks__/journal-store'
 import { shallowMount } from "@vue/test-utils"
 import EntryView from "@/modules/daybook/views/EntryView.vue"
 import Swal from "sweetalert2"

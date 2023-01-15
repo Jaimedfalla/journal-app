@@ -1,6 +1,6 @@
-import { journalState,entries,entry } from "../../__mocks__/test-journal-state"
+import { journalState,entries,entry } from "../../../../mock-data/test-journal-state"
 import journalApi from '@/api/journalApi'
-import {createVuexStore} from '../../__mocks__/global-functions'
+import {createVuexStore} from '../../__mocks__/journal-store'
 
 describe('Pruebas en el journal module',()=>{
     it('Estado inicial',()=>{
